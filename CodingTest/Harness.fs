@@ -1,31 +1,28 @@
 ﻿module CodingTest.Harness
 
-type SeedValues =
-  {
-    initialX     : float 
-    initialY     : float
-    sizeOfSeries : int
-    y_const      : float }
+open System
 
 let firstNumber x =
   (0.5 * x**2. + 30. * x + 10.) / 25.
 
 let toQuart x =
   let quarted = x * 4.
-  let rounded = System.Math.Round(quarted, System.MidpointRounding.AwayFromZero)
+  let rounded = Math.Round(quarted)
   rounded / 4.
 
 let growthRate y firstNum =
-  toQuart ((y * 0.02) / 25. / firstNum)
+   (y * 0.02) / 25. / firstNum
 
 let genSeries grwthRt fstNum len =
   [ yield fstNum
     for i in 1..(len-1) -> 
       grwthRt * (fstNum**(float i)) ]
+
+let seriesQuartered series =
+  series
   |> List.sortByDescending (fun i -> -(i))
   |> List.map toQuart
-//  |> Set.ofList // remove dups, shouldn't be required really
-//  |> Set.toList
+  |> List.distinct
 
 let special1 series =
   series
@@ -33,11 +30,12 @@ let special1 series =
   |> List.skip 2
   |> List.head
 
-let takeClosest x = 
-  Seq.map (fun n -> abs(n-x), n)
-  >> Seq.sortByDescending (fun (k,v) -> -(k), v)
-  >> Seq.head 
-  >> snd
+let takeClosest x series =
+  series
+  |> Seq.map (fun n -> abs(n-x), n)
+  |> Seq.sortByDescending (fun (k,v) -> -(k), v)
+  |> Seq.head 
+  |> snd
 
 let special2 series z (y:float) =
   takeClosest (y / z) series

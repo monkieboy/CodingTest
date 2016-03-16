@@ -3,6 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{200EE0F2-C239-47C9-8224-397E3B3AF75E}"
 	ProjectSection(SolutionItems) = preProject
+		..\..\paket.dependencies = ..\..\paket.dependencies
 		paket.dependencies = paket.dependencies
 	EndProjectSection
 EndProject
